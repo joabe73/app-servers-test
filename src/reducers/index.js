@@ -5,7 +5,7 @@ const initialState = {
     list: [
       {
         url: 'https://thawing-springs-53971.herokuapp.com',
-        online: false,
+        online: true,
         name: 'Node 1',
         loading: false,
         blocks: {}
@@ -41,72 +41,17 @@ const initialState = {
 }
 
 const reducerInitial = createSlice({
-  name: 'nodes',
+  name: 'initial',
   initialState,
   reducers: {
-    checkNodeSatusStart(state, action) {
-      let list, nodeIndex;
-      list = state.list;
-      nodeIndex = state.list.findIndex(p => p.url === action.node.url);
-      if (nodeIndex >= 0) {
-        list = [
-          ...state.list.slice(0, nodeIndex),
-          {
-            ...state.list[nodeIndex],
-            loading: true,
-          },
-          ...state.list.slice(nodeIndex + 1),
-        ];
-      }
-      return {
-        ...state,
-        list,
-      };
-    },
     checkNodeSatus(state, action) {
-      let list, nodeIndex;
-      list = state.nodes.list;
-      nodeIndex = state.nodes.list.findIndex(p => p.url === action.node.url);
-      if (nodeIndex >= 0) {
-        list = [
-          ...state.list.slice(0, nodeIndex),
-          {
-            ...state.list[nodeIndex],
-            online: true,
-            name: action.res.node_name,
-            loading: false,
-            blocks: action.res.blocks
-          },
-          ...state.list.slice(nodeIndex + 1),
-        ];
-      }
-      return {
-        ...state,
-        list,
-      };
+      state.nodes.list = action.payload
     },
-    checkNodeSatusFailure(state, action) {
-      let list, nodeIndex;
-      list = state.list;
-      nodeIndex = state.list.findIndex(p => p.url === action.node.url);
-      if (nodeIndex >= 0) {
-        list = [
-          ...state.list.slice(0, nodeIndex),
-          {
-            ...state.list[nodeIndex],
-            online: false,
-            loading: false,
-          },
-          ...state.list.slice(nodeIndex + 1),
-        ];
-      }
-      return {
-        ...state,
-        list,
-      };
+    updateBlocks(state, action) {
+      state.nodes.list = action.payload
     }
   }
 })
 
-export const { checkNodeSatus, checkNodeSatusStart, checkNodeSatusFailure } = reducerInitial.actions
+export const { checkNodeSatus, updateBlocks } = reducerInitial.actions
 export default reducerInitial.reducer

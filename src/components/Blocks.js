@@ -3,7 +3,6 @@ import { View, Text } from 'react-native'
 import propTypes from 'prop-types'
 
 const Blocks = ({ block }) => {
-  console.log('dddd', block)
   return (
   <View>
     <Text>{block.attributes.index}</Text>
