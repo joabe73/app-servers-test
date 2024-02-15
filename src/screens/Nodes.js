@@ -1,75 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from "redux";
 import * as actionsBlock from '../actions/blocks';
 import * as actions from "../actions/nodes";
 import Node from "../components/Node";
 import { Heading } from "material-bread";
+import { checkNodeSatus } from '../reducers/index'
 
-export class Nodes extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      expandedNodeURL: null
-    };
-    this.toggleNodeExpanded = this.toggleNodeExpanded.bind(this);
+const Nodes = () => {
+  const nodes = useSelector((state) => state.initial.nodes.list)
+  const dispatch = useDispatch()
+  const [expandedNodeURL, setNodeUrl] = useState(null)
+
+  useEffect(() => {
+    // handleNodeStatus()
+  }, [])
+
+  const handleNodeStatus = () => {
+    dispatch(checkNodeSatus({ nodes: nodes }))
   }
 
-  componentDidMount() {
-    this.props.actions.checkNodeStatuses(this.props.nodes.list);
+  const toggleNodeExpanded = (node) => {
+    setNodeUrl(node.url === expandedNodeURL ? null : node.url)
   }
 
-  toggleNodeExpanded(node) {
-    this.setState({
-      expandedNodeURL: node.url === this.state.expandedNodeURL ? null : node.url
-    });
-  }
-
-  render() {
-    const { nodes } = this.props;
-    console.log('>>>>>', nodes)
-    return (
-      <View>
-        <Heading style={styles.heading} type={4}>
-          Nodes
-        </Heading>
-        {nodes.list.map(node => (
-          <Node
-            node={node}
-            blocks={node.blocks}
-            key={node.url}
-            expanded={node.url === this.state.expandedNodeURL}
-            toggleNodeExpanded={this.toggleNodeExpanded}
-          />
-        ))}
-      </View>
-    );
-  }
+  return (
+    <View>
+      <Heading style={styles.heading} type={4}>
+        Nodes
+      </Heading>
+      {nodes.map(node => (
+        <Node
+          node={node}
+          blocks={node.blocks}
+          key={node.url}
+          expanded={node.url === expandedNodeURL}
+          toggleNodeExpanded={toggleNodeExpanded}
+        />
+      ))}
+    </View>
+  )
 }
 
-Nodes.propTypes = {
-  actions: PropTypes.object.isRequired,
-  nodes: PropTypes.object.isRequired
-};
 const styles = StyleSheet.create({
   heading: { marginLeft: 30, marginTop: 45, fontWeight: "700" }
-});
+})
 
-function mapStateToProps(state) {
-  return {
-    nodes: state.nodes
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Nodes);
+export default Nodes

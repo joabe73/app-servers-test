@@ -6,10 +6,6 @@ const position = data => {
   console.log(p)
 }
 
- const gray2= '#404040',
-  const gray1 = '#e6e6e6',
-  const purple1 = '#0000ff'
-
 export function getBlocks(node) {
   return async () => {
     let res = {data: [], error: null}

@@ -1,4 +1,4 @@
-export default () => ({
+export default {
   nodes: {
     list: [
       {
@@ -35,4 +35,4 @@ export default () => ({
     loading: false,
     error: ''
   }
-});
+}

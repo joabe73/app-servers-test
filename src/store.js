@@ -1,19 +1,9 @@
-import {createStore, applyMiddleware, compose} from 'redux';
-import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
-import thunk from 'redux-thunk';
-import rootReducer from './reducers';
+import { configureStore } from '@reduxjs/toolkit'
 
-const composeEnhancers = __DEV__
-  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose // eslint-disable-line no-underscore-dangle
-  : compose;
+import initial_reducers from './reducers/index'
 
-export default initialState => {
-  const middlewares = [reduxImmutableStateInvariant(), thunk];
-  const store = createStore(
-    rootReducer,
-    initialState,
-    composeEnhancers(applyMiddleware(...middlewares)),
-  );
-
-  return {store};
-};
+export const store = configureStore({ 
+  reducer: {
+    initial: initial_reducers
+  }
+})
