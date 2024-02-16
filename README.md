@@ -4,9 +4,10 @@
 On this app, you can see a list of nodes and their status, and each node represents a serever. Each server can have a list of blocks.
 
 <p float="left">
+  <img src="./src/assets/node_status.png" alt="loading nodes status" width="140" height="300" />
   <img src="./src/assets/node_status.png" alt="nodes and their status" width="140" height="300" />
   <img src="./src/assets/node_s_blocks.png" alt="searching blocks" width="140" height="300" />
-  <img src="./src/assets/node_blocks.png" alt="bodes with blocks" width="140" height="300" />
+  <img src="./src/assets/node_blocks.png" alt="nodes with blocks" width="140" height="300" />
 </p>
 
 
