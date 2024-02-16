@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { View, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
-import colors from "../constants/colors";
-import { Paper, Subtitle, BodyText, Caption } from "material-bread";
-import { Expander } from "./Expander";
-import Block from './Blocks';
-import Status from "./Status";
+import React from 'react'
+import { View, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
+import { Paper, Subtitle, BodyText, Caption } from 'material-bread'
+
+import colors from '../constants/colors'
+import { Expander } from './Expander'
+import Block from './Blocks'
+import Status from './Status'
 
 const Node = ({ node, blocks, expanded, toggleNodeExpanded }) => (
   <TouchableOpacity onPress={() => toggleNodeExpanded(node)}>
@@ -13,40 +13,33 @@ const Node = ({ node, blocks, expanded, toggleNodeExpanded }) => (
       <View style={styles.headingContainer}>
         <Subtitle
           type={6}
-          text={node.name || "Unknown"}
+          text={node.name || 'Unknown'}
           style={styles.heading}
         />
-        <Status loading={node.loading} online={node.online} />
+        <View style={styles.headingStatus}>
+          <Status loading={(node.loading && !expanded)} online={node.online} />
+          <Expander expanded={expanded} style={styles.icon(expanded)} />
+        </View>
       </View>
-      <Caption
-        text={node.url}
-        color={colors.gray}
-        style={styles.secondaryHeading}
-      />
-      <Expander expanded={expanded} style={styles.icon(expanded)} />
+      <View style={styles.headingContainer}>
+        <Caption
+          text={node.url}
+          color={colors.gray}
+          style={styles.secondaryHeading}
+        />
+      </View>
       {expanded && (
         <View style={styles.heading}>
-          {node.loading && <ActivityIndicator color={colors.gray} />}
-          {blocks.length ? blocks.map(item => (
-            <Block block={item} />
-          )) : <BodyText type={1} text={"this node has no blocks"} />}
+          {node.loading ? <ActivityIndicator color={colors.gray} /> :
+            blocks.length ? blocks.map((item, ix) => (
+              <Block key={ix} block={item} />
+            )) : <BodyText type={1} text={'this node has no blocks'} />
+          }
         </View>
       )}
     </Paper>
   </TouchableOpacity>
-);
-
-Node.propTypes = {
-  node: PropTypes.shape({
-    url: PropTypes.string,
-    online: PropTypes.bool,
-    name: PropTypes.string,
-    loading: PropTypes.bool,
-    blocks: PropTypes.object
-  }).isRequired,
-  expanded: PropTypes.bool,
-  toggleNodeExpanded: PropTypes.func.isRequired
-};
+)
 
 const styles = StyleSheet.create({
   container: {
@@ -59,21 +52,27 @@ const styles = StyleSheet.create({
     color: colors.text
   },
   headingContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingEnd: 30,
-    alignItems: "center",
-    width: "100%"
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingEnd: 10,
+    alignItems: 'center',
+    width: '100%'
+  },
+  headingStatus: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   secondaryHeading: {
     marginTop: 5,
     color: colors.faded
   },
   icon: expanded => ({
-    position: "absolute",
+    position: 'absolute',
     top: expanded ? 10 : 20,
     right: 10
   })
-});
+})
 
-export default Node;
+export default Node

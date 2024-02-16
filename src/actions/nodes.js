@@ -1,6 +1,8 @@
 import { checkNodeSatus, updateBlocks } from '../reducers/index'
 import { store } from '../store'
 
+const setDalay = async () => await new Promise(f => setTimeout(f, 2000))
+
 const requestStatus = async () => {
   const serversSatus = [
     { online: true, url: 'https://thawing-springs-53971.herokuapp.com', },
@@ -9,37 +11,74 @@ const requestStatus = async () => {
     { online: true, url: 'http://localhost:3002'}
   ]
 
-  await new Promise(f => setTimeout(f, 1000))
+  await setDalay()
   return serversSatus
 }
 
 const requestBlocks = async () => {
   const serversBlocks = [
-    { blocks: [{ attributes: { index: 1, data: 'test block content connection block node success configuration addd milisecs dd' }}], url: 'https://thawing-springs-53971.herokuapp.com' },
-    { blocks: [{ attributes: { index: 2, data: 'test block content connection block node success fsss' }}], url: 'https://secret-lowlands-62331.herokuapp.com', },
-    { blocks: [{ attributes: { index: 3, data: 'test block content connection block node success' }}], url: 'https://calm-anchorage-82141.herokuapp.com', },
-    { blocks: [{ attributes: { index: 4, data: 'test block content connection block node success' }}], url: 'http://localhost:3002'}
+    { 
+      url: 'https://thawing-springs-53971.herokuapp.com',
+      blocks: [
+        { attributes: { index: '001', data: 'test block content connection block node success configuration addd milisecs dd' }},
+        { attributes: { index: '002', data: 'test block content connection block node success configuration dd' }},
+        { attributes: { index: '003', data: 'test block content connection block node configuration addd milisecs dd' }},
+        { attributes: { index: '004', data: 'test block content connection block node success configuration addd milisecs dd mais mais' }},
+      ]
+    },
+    { 
+      url: 'https://secret-lowlands-62331.herokuapp.com',
+      blocks: [
+        { attributes: { index: '001', data: 'test block content connection block node success configuration addd milisecs dd' }},
+        { attributes: { index: '002', data: 'test block content connection block node success configuration dd' }},
+        { attributes: { index: '003', data: 'test block content connection block node configuration addd milisecs dd' }},
+        { attributes: { index: '004', data: 'test block content connection block node success configuration addd milisecs dd mais mais' }},
+      ]
+    },
+    { 
+      url: 'https://calm-anchorage-82141.herokuapp.com',
+      blocks: [
+        { attributes: { index: '001', data: 'test block content connection block node success configuration addd milisecs dd' }},
+        { attributes: { index: '002', data: 'test block content connection block node success configuration dd' }},
+        { attributes: { index: '003', data: 'test block content connection block node configuration addd milisecs dd' }},
+        { attributes: { index: '004', data: 'test block content connection block node success configuration addd milisecs dd mais mais' }},
+      ]
+    },
+    {  
+      url: 'http://localhost:3002',
+      blocks: [
+        { attributes: { index: '001', data: 'test block content connection block node success configuration addd milisecs dd' }},
+        { attributes: { index: '002', data: 'test block content connection block node success configuration dd' }},
+        { attributes: { index: '003', data: 'test block content connection block node configuration addd milisecs dd' }},
+        { attributes: { index: '004', data: 'test block content connection block node success configuration addd milisecs dd mais mais' }},
+      ]
+    }
   ]
 
-  await new Promise(f => setTimeout(f, 1000))
+  await setDalay()
   return serversBlocks
 }
 
 export async function getBlocks(node) {
   try {
-    const res = await requestBlocks()
     const state = store.getState()
     const { list } = state.initial.nodes
-    let newList = [...list]
-
     const nodeIndex = list.findIndex(it => it.url === node.url)
-    const blockIndex = res.findIndex(it => it.url === node.url)
+    let newList = [...list]
+    let newList2 = [...list]
 
-    if (nodeIndex > -1) {
-      newList[nodeIndex] = { ...newList[nodeIndex], blocks: res[blockIndex].blocks }
+    newList[nodeIndex] = { ...newList[nodeIndex], loading: true }
+    store.dispatch(updateBlocks(newList))
+
+    const res = await requestBlocks()
+
+    const blockIndex = res.findIndex(it => it.url === node.url)
+    if (blockIndex > -1) {
+      newList2[nodeIndex] = { ...newList2[nodeIndex], loading: false, blocks: res[blockIndex].blocks }
     }
 
-    store.dispatch(updateBlocks(newList))
+    console.log(';;;;;;;;;', newList2)
+    store.dispatch(updateBlocks(newList2))
 
   } catch (error) {
     
@@ -56,7 +95,7 @@ export async function requestNodeStatus() {
       updateItem = res.find(p => p.url === item.url)
 
       if (updateItem) {
-        return { ...item, online: updateItem.online }
+        return { ...item, loading: false, online: updateItem.online }
       }
 
       return updateItem

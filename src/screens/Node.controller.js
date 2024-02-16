@@ -18,8 +18,11 @@ const NodeController = () => {
   }
 
   const toggleNodeExpanded = (node) => {
-    getBlocks(node)
-    setNodeUrl(node.url === expandedNodeURL ? null : node.url)
+    const selectedItem = (node.url === expandedNodeURL)
+    if (!selectedItem) {
+      getBlocks(node)
+    }
+    setNodeUrl(selectedItem ? null : node.url)
   }
 
 

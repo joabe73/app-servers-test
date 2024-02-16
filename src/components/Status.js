@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Subtitle } from "material-bread";
-import colors from "../constants/colors";
-import EntypoIcon from "react-native-vector-icons/Entypo";
-import { View, StyleSheet } from "react-native";
+import React from 'react'
+import { Subtitle } from 'material-bread'
+import EntypoIcon from 'react-native-vector-icons/Entypo'
+import { View, StyleSheet } from 'react-native'
+
+import colors from '../constants/colors'
 
 function Status({ online, loading }) {
   const color = loading
@@ -13,10 +13,10 @@ function Status({ online, loading }) {
     : colors.danger;
   return (
     <View style={styles.container}>
-      <EntypoIcon name="dot-single" color={color} size={30} />
+      <EntypoIcon name='dot-single' color={color} size={30} />
       <Subtitle
         type={6}
-        text={loading ? "LOADING" : online ? "ONLINE" : "OFFLINE"}
+        text={loading ? 'LOADING' : online ? 'ONLINE' : 'OFFLINE'}
         style={styles.textColor(online)}
       />
     </View>
@@ -31,15 +31,10 @@ const styles = StyleSheet.create({
     fontSize: 12
   }),
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignContent: "center"
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignContent: 'center'
   }
 });
 
-Status.propTypes = {
-  online: PropTypes.bool,
-  loading: PropTypes.bool
-};
-
-export default Status;
+export default Status

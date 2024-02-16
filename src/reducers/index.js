@@ -7,28 +7,28 @@ const initialState = {
         url: 'https://thawing-springs-53971.herokuapp.com',
         online: true,
         name: 'Node 1',
-        loading: false,
+        loading: true,
         blocks: {}
       },
       {
         url: 'https://secret-lowlands-62331.herokuapp.com',
         online: false,
         name: 'Node 2',
-        loading: false,
+        loading: true,
         blocks: {}
       },
       {
         url: 'https://calm-anchorage-82141.herokuapp.com',
         online: false,
         name: 'Node 3',
-        loading: false,
+        loading: true,
         blocks: {}
       },
       {
         url: 'http://localhost:3002',
-        online: false,
+        online: true,
         name: 'Node 4',
-        loading: false,
+        loading: true,
         blocks: {}
       },
     ],

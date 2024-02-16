@@ -7,6 +7,9 @@ export default {
   success: "#1E9A57",
   contentBackground: "#f8f8f8",
   border: "#aaaaaa",
+  gray6: "#666666",
   white: "#ffffff",
-  gray: "#929aab"
+  gray: "#929aab",
+  grayd9: "#d9d9d9",
+  blue: "#0033cc"
 };
