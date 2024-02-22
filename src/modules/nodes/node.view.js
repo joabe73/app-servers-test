@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import Node from '../components/Node'
+import Node from '../../components/Node'
 import { Heading } from 'material-bread'
 
 const NodeScreen = ({ controllers }) => {

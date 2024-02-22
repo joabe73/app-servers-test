@@ -1,7 +1,7 @@
 import React from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 
-import Nodes from '../screens/Node.controller'
+import Nodes from '../modules/nodes/node.vModel'
 const Stack = createStackNavigator()
 
 export default function RootStack() {

@@ -5,7 +5,7 @@ import {Provider} from 'react-redux'
 import {BreadProvider} from 'material-bread'
 
 import RootStack from './navigation'
-import {store} from './store'
+import {store} from './store/config.store'
 
 const App = () => (
   <Provider store={store}>

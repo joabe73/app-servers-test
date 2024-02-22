@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { requestNodeStatus, getBlocks } from '../actions/nodes'
-import NodeScreen from './Node.screen'
+import { requestNodeStatus, getBlocks } from './node.models'
+import NodeScreen from './node.view'
 
 const NodeController = () => {
   const { nodes } = useSelector((state) => state.initial)
@@ -24,7 +24,6 @@ const NodeController = () => {
     }
     setNodeUrl(selectedItem ? null : node.url)
   }
-
 
   const controllers = {
     nodes: nodes.list, 

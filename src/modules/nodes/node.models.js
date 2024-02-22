@@ -1,5 +1,5 @@
-import { checkNodeSatus, updateBlocks } from '../reducers/index'
-import { store } from '../store'
+import { checkNodeSatus, updateBlocks } from '../../store/config.reducers'
+import { store } from '../../store/config.store'
 
 const setDalay = async () => await new Promise(f => setTimeout(f, 2000))
 
@@ -37,12 +37,7 @@ const requestBlocks = async () => {
     },
     { 
       url: 'https://calm-anchorage-82141.herokuapp.com',
-      blocks: [
-        { attributes: { index: '001', data: 'test block content connection block node success configuration addd milisecs dd' }},
-        { attributes: { index: '002', data: 'test block content connection block node success configuration dd' }},
-        { attributes: { index: '003', data: 'test block content connection block node configuration addd milisecs dd' }},
-        { attributes: { index: '004', data: 'test block content connection block node success configuration addd milisecs dd mais mais' }},
-      ]
+      blocks: []
     },
     {  
       url: 'http://localhost:3002',
@@ -77,7 +72,6 @@ export async function getBlocks(node) {
       newList2[nodeIndex] = { ...newList2[nodeIndex], loading: false, blocks: res[blockIndex].blocks }
     }
 
-    console.log(';;;;;;;;;', newList2)
     store.dispatch(updateBlocks(newList2))
 
   } catch (error) {

@@ -1,5 +1,7 @@
 # APP POSTS
 
+# The requests in this app are only simulated to demonstrate programming logic.
+
 >**About this app**:
 On this app, you can see a list of nodes and their status, and each node represents a serever. Each server can have a list of blocks.
 
