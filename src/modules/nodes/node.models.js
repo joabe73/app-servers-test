@@ -92,7 +92,7 @@ export async function requestNodeStatus() {
         return { ...item, loading: false, online: updateItem.online }
       }
 
-      return updateItem
+      return item
     })
 
     store.dispatch(checkNodeSatus(newList))
